@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: amazon-ssm-agent
+  name: amazon-ssm-agent
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      app: amazon-ssm-agent
+  template:
+    metadata:
+      labels:
+        app: amazon-ssm-agent
+    spec:
+      containers:
+      - name: amazon-ssm-agent
+        image: ghcr.io/jnig/amazon-ssm-agent-docker:main@sha256:b705909e4080f41b7991b33a359c57087ec37b686d3b89de6c75a87b6b5dc5c5
+        env:
+        - name: SSM_ID
+          valueFrom:
+            secretKeyRef:
+              name: amazon-ssm-agent
+              key: ssm_id
+        - name: SSM_CODE
+          valueFrom:
+            secretKeyRef:
+              name: amazon-ssm-agent
+              key: ssm_code
+        - name: SSM_REGION
+          value: "eu-central-1"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 50Mi
+        volumeMounts:
+        - mountPath: /host
+          name: host
+        - mountPath: /var/lib/amazon/ssm/
+          name: ssm
+      hostPID: true
+      hostNetwork: true
+      tolerations:
+      - effect: NoSchedule
+        operator: Exists
+      volumes:
+      - hostPath:
+          path: /
+        name: host
+      - hostPath:
+          path: /opt/amazon-ssm-agent
+        name: ssm
