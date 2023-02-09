@@ -29,4 +29,4 @@ EOF
 chmod +x /host/opt/amazon/bin/amazon-ssm-init.sh
 chroot /host/ /opt/amazon/bin/amazon-ssm-init.sh
 
-tail -f /var/log/amazon/ssm/amazon-ssm-agent.log
+tail -f /host/var/log/amazon/ssm/amazon-ssm-agent.log
