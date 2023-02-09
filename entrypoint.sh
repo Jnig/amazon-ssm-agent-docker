@@ -5,7 +5,7 @@ if [[ -z $SSM_CODE || -z $SSM_ID || -z $SSM_REGION ]]; then
   exit 1
 fi
 
-mkdir /host/opt/amazon/bin/ || echo "/opt/amazon/bin/ already exists..."
+mkdir -p /host/opt/amazon/bin/ || echo "/opt/amazon/bin/ already exists..."
 
 cp /usr/bin/amazon-ssm-agent /host/opt/amazon/bin/
 cp /usr/bin/ssm-* /host/opt/amazon/bin/
