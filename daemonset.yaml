@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: amazon-ssm-agent
-        image: ghcr.io/jnig/amazon-ssm-agent-docker:main@sha256:3cd00c8d483ffde2c336d9428177e08555ef2de204956771b198fb6930c841b6
+        image: ghcr.io/jnig/amazon-ssm-agent-docker:main@sha256:1c7eee9ba96c38e4b0af1a4a9f24080bdf1a5dbca1ca3ce16a8005f3731e308c
         env:
         - name: SSM_ID
           valueFrom:
